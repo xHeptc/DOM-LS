@@ -1,0 +1,94 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #6a7488;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: hsla(208, 100%, 82%, 1);
+    background: linear-gradient(110deg, hsla(208, 100%, 82%, 1) 0%, hsla(4, 100%, 74%, 1) 100%);
+    background: -moz-linear-gradient(110deg, hsla(208, 100%, 82%, 1) 0%, hsla(4, 100%, 74%, 1) 100%);
+    background: -webkit-linear-gradient(110deg, hsla(208, 100%, 82%, 1) 0%, hsla(4, 100%, 74%, 1) 100%);
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#A5D5FF", endColorstr="#FF857C", GradientType=1 );
+}
+
+h1 {
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+
+.data {
+    gap: 20px;
+    display: flex;
+    flex-direction: row;
+    height: max-content;
+    width: 80%;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translateX(-50%);
+    justify-content: center;
+}
+
+caption {
+    font-size: 1rem;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.form-field {
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+.form-field label {
+    width: 100%;
+}
+
+.form-field input {
+    width: 100%;
+    border: 0px;
+    height: 1.7rem;
+    border-radius: 5px;
+}
+
+.actions {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    padding: 0.5rem;
+    border: 0px;
+    border-radius: 5px;
+    background-color: #6C757D;
+    color: white;
+    flex: 1;
+}
+
+table {
+    padding-top: 5px;
+    width: 100%;
+}
+
+table,
+table th,
+table td {
+  color: black;
+}

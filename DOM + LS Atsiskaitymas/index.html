@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Vanila JavaScript and LocalStorage CRUD project</h1>
+
+    <div class="data">
+        <div class="data-panel">
+            <form>
+                <div class="form-field">
+                    <label>Product Code</label>
+                    <input type="number" name="id">
+                </div>
+                <div class="form-field">
+                    <label>Product Name</label>
+                    <input type="text" name="name">
+                </div>
+                <div class="form-field">
+                    <label>Product Quantity</label>
+                    <input type="number" name="quantity">
+                </div>
+                <div class="actions">
+                    <button type="submit" value="insert">Insert new</button>
+                    <button type="submit" value="edit">Edit item</button>
+                    <button type="submit" value="delete">Delete from LS</button>
+                </div>
+            </form>
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Code</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Quantity</th>
+                    </tr>
+                </thead>
+    
+                <tbody id="cart-body">
+    
+                </tbody>
+            </table>
+        </div>
+        <div class="cart-panel">
+            <form>
+                <caption>Find Product By Code</caption>
+                <div class="form-field">
+                    <label>Product Code</label>
+                    <input type="number" name="id">
+                </div>
+                <div class="actions">
+                    <button type="submit" value="select">Select from LS</button>
+                </div>
+            </form>
+            <table border="1px">
+                <thead>
+                    <tr>
+                        <th scope="col">Product Code</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Quantity</th>
+                    </tr>
+                </thead>
+    
+                <tbody id="cart-body">
+    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <script src="index.js"></script>
+</body>
+</html>
