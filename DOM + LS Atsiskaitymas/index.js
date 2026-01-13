@@ -2,7 +2,6 @@ const dataTable = document.querySelector(".data-panel table tbody")
 const cartTable = document.querySelector(".cart-panel table tbody")
 
 let dbStorage = JSON.parse(localStorage.getItem("db")) || []
-let cartStorage = JSON.parse(localStorage.getItem("cart")) || []
 
 function createTableItem(code, name, quantity){
     const tr = document.createElement("tr")
@@ -34,13 +33,7 @@ function saveDB(){
     localStorage.setItem("db", JSON.stringify(dbStorage))
 }
 
-function saveCart(){
-    localStorage.setItem("cart", JSON.stringify(cartStorage))
-}
-
 function verifyData(data){
-    console.log(data)
-
     if (!data.id || data.id <= 0){
         return [false, "Invalid code"]
     }
@@ -86,12 +79,13 @@ function assignItemInDB(data, state){
         }
 
         Object.assign(item, data)
-        const htmlItem = document.querySelector(`[code="${item.id}"]`)
-        console.log(htmlItem)
-        const htmlName = htmlItem.querySelector(".item-name")
-        const htmlQuantity = htmlItem.querySelector(".item-quantity")
-        htmlName.textContent = data.name
-        htmlQuantity.textContent = data.quantity
+        const htmlItem = document.querySelectorAll(`[code="${item.id}"]`)
+        htmlItem.forEach(html => {
+            const htmlName = html.querySelector(".item-name")
+            const htmlQuantity = html.querySelector(".item-quantity")
+            htmlName.textContent = data.name
+            htmlQuantity.textContent = data.quantity
+        })
     }
 
     saveDB()
@@ -104,12 +98,11 @@ function deleteItemFromDB(id){
         return
     }
 
-    const htmlItem = document.querySelector(`[code="${item.id}"]`)
-    htmlItem.remove()
+    const htmlItem = document.querySelectorAll(`[code="${item.id}"]`)
+    htmlItem.forEach(html => html.remove())
     dbStorage = dbStorage.filter(item => item.id != id)
-    cartStorage = dbStorage.filter(item => item.id != id)
+
     saveDB()
-    saveCart()
 }
 
 function putItemInCart(id){
@@ -119,13 +112,13 @@ function putItemInCart(id){
         return
     }
 
-    cartStorage.push(item)
-    saveCart()
+    cartTable.appendChild(createTableItem(item.id, item.name, item.quantity))
 }
 
 document.addEventListener("submit", (e) => {
     e.preventDefault()
-    const submitter = e.submitter.value
+    const btn = e.submitter
+    const submitter = btn.value
 
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
@@ -133,7 +126,24 @@ document.addEventListener("submit", (e) => {
     if (submitter == "insert"){
         assignItemInDB(data, "inserting")
     } else if (submitter === "edit"){
+        const item = getItemFromDB(data.id)
+        if (!item){
+            alert("Item with this Code does not exist")
+            return
+        }
+
+        btn.textContent = "Save & Update"
+        btn.value = "save"
+        
+        const nameInput = document.querySelector('.data-panel [name="name"]')
+        const quantityInput = document.querySelector('.data-panel [name="quantity"]')
+
+        nameInput.value = item.name
+        quantityInput.value = item.quantity
+    } else if (submitter === "save"){
         assignItemInDB(data, "editing")
+        btn.value = "edit"
+        btn.textContent = "Edit"
     } else if (submitter === "delete"){
         deleteItemFromDB(data.id)
     } else if (submitter == "select"){
@@ -142,4 +152,3 @@ document.addEventListener("submit", (e) => {
 })
 
 Array.from(dbStorage).forEach(item => dataTable.appendChild(createTableItem(item.id, item.name, item.quantity)))
-Array.from(cartStorage).forEach(item => cartTable.appendChild(createTableItem(item.id, item.name, item.quantity)))
